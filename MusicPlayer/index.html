@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <h1>Music Player</h1>
+            </div>
+            <div class="header-controls">
+                <button class="btn-icon" id="uploadBtn" title="Upload Music">
+                    <i class="fas fa-upload"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar - Playlist -->
+            <aside class="sidebar">
+                <!-- Currently Playing Section -->
+                <div class="currently-playing-section">
+                    <h4>Currently Playing</h4>
+                    <div class="currently-playing-card" id="currentlyPlayingCard">
+                        <div class="card-content">
+                            <div id="currentAlbumArt" class="card-album-art"><i class="fas fa-music"></i></div>
+                            <div class="card-info">
+                                <p id="currentTitle" class="card-title">No song playing</p>
+                                <p id="currentArtist" class="card-artist"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recently Played Section -->
+                <div class="recently-played-section">
+                    <h4>Recently Played</h4>
+                    <ul class="recently-played-list" id="recentlyPlayedList">
+                        <!-- Recently played songs will be added here -->
+                    </ul>
+                </div>
+                <div class="sidebar-header">
+                    <h2>
+                        <i class="fas fa-list-music"></i>
+                        <span id="playlistNameDisplay">My Playlist</span>
+                    </h2>
+                    <button class="btn-icon" id="clearPlaylist" title="Clear Playlist">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div style="margin: 10px 0;">
+                    <input type="text" id="playlistNameInput" placeholder="Enter playlist name"
+                        style="width: 90%; padding: 6px; border-radius: 6px; border: 1px solid #ccc;">
+                </div>
+                <div class="playlist-controls">
+                    <button class="btn-small" id="shuffleBtn">
+                        <i class="fas fa-shuffle"></i> Shuffle
+                    </button>
+                    <button class="btn-small" id="sortBtn">
+                        <i class="fas fa-sort"></i> Sort
+                    </button>
+                </div>
+                <ul class="playlist" id="playlist">
+                    <!-- Playlist items will be dynamically added here -->
+                </ul>
+                <div class="playlist-stats">
+                    <span id="playlistCount">0 songs</span>
+                    <span id="playlistDuration">0:00</span>
+                </div>
+            </aside>
+
+            <!-- Player Section -->
+            <main class="player-section">
+                <!-- Album Art & Song Info -->
+                <div class="album-art-container">
+                    <div class="album-art" id="albumArt">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="visualizer" id="visualizer">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+
+                <div class="song-info">
+                    <h2 class="song-title" id="songTitle">No Song Selected</h2>
+                    <p class="song-artist" id="songArtist">Unknown Artist</p>
+                    <p class="song-album" id="songAlbum">Unknown Album</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <span class="time" id="currentTime">0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress" id="progress"></div>
+                        <div class="progress-handle" id="progressHandle"></div>
+                    </div>
+                    <span class="time" id="duration">0:00</span>
+                </div>
+
+                <!-- Player Controls -->
+                <div class="player-controls">
+                    <button class="btn-control" id="prevBtn" title="Previous">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button class="btn-control btn-play" id="playBtn" title="Play">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="btn-control" id="nextBtn" title="Next">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                    <button class="btn-control" id="repeatBtn" title="Repeat Off">
+                        <i class="fas fa-repeat"></i>
+                    </button>
+                </div>
+
+                <!-- Volume Control -->
+                <div class="volume-container">
+                    <button class="btn-icon" id="muteBtn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+                    <span class="volume-value" id="volumeValue">70%</span>
+                </div>
+            </main>
+        </div>
+
+        <!-- Playlist Manager Section -->
+        <section class="playlist-manager-section">
+            <div class="playlist-manager-header">
+                <h2>My Playlists</h2>
+                <button id="createPlaylistBtn" class="btn-create-playlist">
+                    <i class="fas fa-plus"></i> Create Playlist
+                </button>
+            </div>
+            <div id="playlistsContainer" class="playlists-container">
+                <!-- Playlists will be dynamically added here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <audio id="audioPlayer"></audio>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="fileInput" accept="audio/*" multiple style="display: none;">
+
+    <script src="script.js"></script>
+</body>
+
+</html>

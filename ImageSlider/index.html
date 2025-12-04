@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Slider</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button class="toggle-btn" id="toggleBtn">
+                <span class="toggle-icon">🎨</span>
+                <span class="toggle-text">Effects</span>
+            </button>
+            <div class="effects-menu" id="effectsMenu">
+                <div class="effects-title">Image slider effect</div>
+                <button class="effect-btn active" data-effect="auto-play">
+                    <span class="effect-number">1.</span>
+                    <div class="effect-info">
+                        <div class="effect-name">Auto-Play + Manual</div>
+                        <div class="effect-desc">Most Common</div>
+                    </div>
+                </button>
+                <button class="effect-btn" data-effect="fade">
+                    <span class="effect-number">2.</span>
+                    <div class="effect-info">
+                        <div class="effect-name">Fade Effect</div>
+                        <div class="effect-desc">Elegant Transition</div>
+                    </div>
+                </button>
+                <button class="effect-btn" data-effect="stacked-cards">
+                    <span class="effect-number">3.</span>
+                    <div class="effect-info">
+                        <div class="effect-name">Stacked Cards Autoplay</div>
+                        <div class="effect-desc">3D Card Stack</div>
+                    </div>
+                </button>
+                <button class="effect-btn" data-effect="fullscreen">
+                    <span class="effect-number">4.</span>
+                    <div class="effect-info">
+                        <div class="effect-name">Fullscreen Background</div>
+                        <div class="effect-desc">Hero Section Style</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <h1>Interactive Image Slider</h1>
+        
+        <!-- Image Slider Container -->
+        <div class="slider-container">
+            <!-- Previous Button -->
+            <button class="nav-btn prev-btn" id="prevBtn">
+                <span>&lt;</span>
+            </button>
+            
+            <!-- Image Display Section -->
+            <div class="slider-wrapper">
+                <div class="image-container" id="imageContainer">
+                    <!-- Images will be dynamically loaded here -->
+                </div>
+            </div>
+            
+            <!-- Next Button -->
+            <button class="nav-btn next-btn" id="nextBtn">
+                <span>&gt;</span>
+            </button>
+        </div>
+        
+        <!-- Position Indicators -->
+        <div class="indicators" id="indicators">
+            <!-- Dots will be dynamically created here -->
+        </div>
+        
+        <!-- Control Panel -->
+        <div class="controls">
+            <button class="control-btn" id="playPauseBtn">Pause Auto-play</button>
+            <div class="speed-control">
+                <label for="speedRange">Speed: </label>
+                <input type="range" id="speedRange" min="1000" max="5000" value="3000" step="500">
+                <span id="speedValue">3s</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
