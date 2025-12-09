@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Sample Teachers - EduConnect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #0f172a;
+            color: #f1f5f9;
+        }
+        h1 { color: #6366f1; }
+        button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover { background: #4f46e5; }
+        button:disabled {
+            background: #64748b;
+            cursor: not-allowed;
+        }
+        #log {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .info { color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <h1>🎓 Add Sample Teachers to Database</h1>
+    <p>This will add 20 sample teachers to your Firebase Firestore database.</p>
+    
+    <button id="addTeachersBtn" onclick="addSampleTeachers()">Add 20 Sample Teachers</button>
+    <button onclick="clearLog()">Clear Log</button>
+    
+    <div id="log"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase.js"></script>
+
+    <script>
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const time = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `<div class="${type}">[${time}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        const sampleTeachers = [
+            { name: "Dr. Sarah Johnson", email: "sarah.johnson@edu.com", department: "Computer Science", subject: "Data Structures", experience: 8 },
+            { name: "Prof. Michael Chen", email: "michael.chen@edu.com", department: "Computer Science", subject: "Algorithms", experience: 12 },
+            { name: "Dr. Emily Rodriguez", email: "emily.rodriguez@edu.com", department: "Mathematics", subject: "Calculus", experience: 6 },
+            { name: "Prof. David Kim", email: "david.kim@edu.com", department: "Physics", subject: "Quantum Mechanics", experience: 15 },
+            { name: "Dr. Lisa Anderson", email: "lisa.anderson@edu.com", department: "Chemistry", subject: "Organic Chemistry", experience: 9 },
+            { name: "Prof. James Wilson", email: "james.wilson@edu.com", department: "Computer Science", subject: "Machine Learning", experience: 10 },
+            { name: "Dr. Maria Garcia", email: "maria.garcia@edu.com", department: "Biology", subject: "Molecular Biology", experience: 7 },
+            { name: "Prof. Robert Taylor", email: "robert.taylor@edu.com", department: "Mathematics", subject: "Linear Algebra", experience: 11 },
+            { name: "Dr. Jennifer Lee", email: "jennifer.lee@edu.com", department: "Computer Science", subject: "Database Systems", experience: 8 },
+            { name: "Prof. William Brown", email: "william.brown@edu.com", department: "Physics", subject: "Thermodynamics", experience: 14 },
+            { name: "Dr. Amanda Martinez", email: "amanda.martinez@edu.com", department: "Chemistry", subject: "Physical Chemistry", experience: 6 },
+            { name: "Prof. Thomas Davis", email: "thomas.davis@edu.com", department: "Computer Science", subject: "Operating Systems", experience: 13 },
+            { name: "Dr. Patricia White", email: "patricia.white@edu.com", department: "Mathematics", subject: "Statistics", experience: 9 },
+            { name: "Prof. Christopher Miller", email: "christopher.miller@edu.com", department: "Biology", subject: "Genetics", experience: 10 },
+            { name: "Dr. Jessica Thompson", email: "jessica.thompson@edu.com", department: "Computer Science", subject: "Artificial Intelligence", experience: 7 },
+            { name: "Prof. Daniel Harris", email: "daniel.harris@edu.com", department: "Physics", subject: "Electromagnetism", experience: 12 },
+            { name: "Dr. Michelle Clark", email: "michelle.clark@edu.com", department: "Chemistry", subject: "Analytical Chemistry", experience: 8 },
+            { name: "Prof. Andrew Lewis", email: "andrew.lewis@edu.com", department: "Computer Science", subject: "Computer Networks", experience: 11 },
+            { name: "Dr. Rachel Walker", email: "rachel.walker@edu.com", department: "Mathematics", subject: "Differential Equations", experience: 6 },
+            { name: "Prof. Kevin Young", email: "kevin.young@edu.com", department: "Biology", subject: "Ecology", experience: 9 }
+        ];
+
+        async function addSampleTeachers() {
+            const btn = document.getElementById('addTeachersBtn');
+            btn.disabled = true;
+            btn.textContent = 'Adding Teachers...';
+            
+            log('Starting to add sample teachers...', 'info');
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (let i = 0; i < sampleTeachers.length; i++) {
+                const teacher = sampleTeachers[i];
+                try {
+                    // Create a unique ID for the teacher
+                    const teacherId = `teacher_${Date.now()}_${i}`;
+                    
+                    // Add to users collection
+                    await db.collection('users').doc(teacherId).set({
+                        uid: teacherId,
+                        email: teacher.email,
+                        fullName: teacher.name,
+                        role: 'teacher',
+                        department: teacher.department,
+                        subject: teacher.subject,
+                        experience: teacher.experience,
+                        approved: true,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+                    // Also add to teachers collection for easier querying
+                    await db.collection('teachers').doc(teacherId).set({
+                        name: teacher.name,
+                        email: teacher.email,
+                        department: teacher.department,
+                        subject: teacher.subject,
+                        experience: teacher.experience,
+                        approved: true,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+                    successCount++;
+                    log(`✓ Added: ${teacher.name} (${teacher.subject})`, 'success');
+                    
+                    // Small delay to avoid rate limiting
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                    
+                } catch (error) {
+                    errorCount++;
+                    log(`✗ Failed to add ${teacher.name}: ${error.message}`, 'error');
+                }
+            }
+
+            log(`\n=== Summary ===`, 'info');
+            log(`Successfully added: ${successCount} teachers`, 'success');
+            if (errorCount > 0) {
+                log(`Failed: ${errorCount} teachers`, 'error');
+            }
+            log('Done! You can now close this page and refresh your student dashboard.', 'info');
+            
+            btn.textContent = 'Add 20 Sample Teachers';
+            btn.disabled = false;
+        }
+
+        log('Ready to add sample teachers. Click the button above to start.', 'info');
+    </script>
+</body>
+</html>

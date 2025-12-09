@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Dashboard - Book appointments with teachers">
+    <title>Student Dashboard - EduConnect</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h2>📚 EduConnect</h2>
+            </div>
+            <div class="nav-links">
+                <span id="userNameDisplay" class="user-name"></span>
+                <button id="logoutBtn" class="btn btn-small btn-secondary">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-item active" data-section="search">
+                    <span class="icon material-icons">search</span>
+                    <span>Search Teachers</span>
+                </a>
+                <a href="#" class="sidebar-item" data-section="appointments">
+                    <span class="icon material-icons">event</span>
+                    <span>My Appointments</span>
+                </a>
+                <a href="#" class="sidebar-item" data-section="messages">
+                    <span class="icon material-icons">chat</span>
+                    <span>Messages</span>
+                </a>
+                <a href="#" class="sidebar-item" data-section="profile">
+                    <span class="icon material-icons">person</span>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Search Teachers Section -->
+            <section id="searchSection" class="dashboard-section active">
+                <h1>Search Teachers</h1>
+
+                <div class="search-container">
+                    <div class="search-filters">
+                        <input type="text" id="searchName" placeholder="Search by name..." class="search-input">
+                        <input type="text" id="searchSubject" placeholder="Search by subject..." class="search-input">
+                        <input type="text" id="searchDepartment" placeholder="Search by department..."
+                            class="search-input">
+                        <button id="searchBtn" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+
+                <div id="teachersGrid" class="teachers-grid">
+                    <!-- Teachers will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- My Appointments Section -->
+            <section id="appointmentsSection" class="dashboard-section">
+                <h1>My Appointments</h1>
+                <div id="appointmentsList" class="appointments-list">
+                    <!-- Appointments will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section id="messagesSection" class="dashboard-section">
+                <h1>Messages</h1>
+                <div id="messagesList" class="messages-list">
+                    <!-- Messages will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profileSection" class="dashboard-section">
+                <div class="section-header">
+                    <h1>My Profile</h1>
+                    <button id="editProfileBtn" class="btn btn-primary">Edit Profile</button>
+                </div>
+                <div class="profile-card">
+                    <div id="profileDetails" class="profile-details">
+                        <!-- Profile details will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Book Appointment Modal -->
+    <div id="bookAppointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Book Appointment</h2>
+            <form id="bookAppointmentForm">
+                <input type="hidden" id="selectedTeacherId">
+                <div class="form-group">
+                    <label>Teacher</label>
+                    <input type="text" id="selectedTeacherName" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDate">Date</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentTime">Time</label>
+                    <input type="time" id="appointmentTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentReason">Reason</label>
+                    <textarea id="appointmentReason" rows="4" required
+                        placeholder="Enter reason for appointment"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Book Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Send Message Modal -->
+    <div id="sendMessageModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Send Message</h2>
+            <form id="sendMessageForm">
+                <input type="hidden" id="messageTeacherId">
+                <div class="form-group">
+                    <label>To Teacher</label>
+                    <input type="text" id="messageTeacherName" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="messageSubject">Subject</label>
+                    <input type="text" id="messageSubject" required placeholder="Enter subject">
+                </div>
+                <div class="form-group">
+                    <label for="messageContent">Message</label>
+                    <textarea id="messageContent" rows="6" required placeholder="Enter your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editFullName">Full Name</label>
+                    <input type="text" id="editFullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="editStudentId">Student ID</label>
+                    <input type="text" id="editStudentId" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDepartment">Department</label>
+                    <input type="text" id="editDepartment" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCourse">Course</label>
+                    <input type="text" id="editCourse" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="../js/firebase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/appointment.js"></script>
+    <script src="../js/teacher.js"></script>
+    <script src="../js/logs.js"></script>
+    <script>
+        // Check authentication
+        checkAuth('student');
+
+        // Sidebar navigation
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        const sections = document.querySelectorAll('.dashboard-section');
+
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionName = item.dataset.section;
+
+                // Update active states
+                sidebarItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // Show selected section
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionName + 'Section').classList.add('active');
+
+                // Load section data
+                loadSectionData(sectionName);
+            });
+        });
+
+        // Load initial data
+        loadSectionData('search');
+
+        // Logout handler
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+
+        // Modal handlers
+        const bookModal = document.getElementById('bookAppointmentModal');
+        const messageModal = document.getElementById('sendMessageModal');
+        const editProfileModal = document.getElementById('editProfileModal');
+        const closeButtons = document.querySelectorAll('.modal-close');
+
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                bookModal.classList.remove('active');
+                messageModal.classList.remove('active');
+                editProfileModal.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === bookModal) bookModal.classList.remove('active');
+            if (e.target === messageModal) messageModal.classList.remove('active');
+            if (e.target === editProfileModal) editProfileModal.classList.remove('active');
+        });
+
+        // Search teachers
+        document.getElementById('searchBtn').addEventListener('click', () => {
+            loadSectionData('search');
+        });
+
+        // Book appointment form
+        let isBooking = false;
+        document.getElementById('bookAppointmentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (isBooking) return; // Prevent double submission
+            isBooking = true;
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Booking...';
+            submitBtn.disabled = true;
+            
+            try {
+                const teacherId = document.getElementById('selectedTeacherId').value;
+                const date = document.getElementById('appointmentDate').value;
+                const time = document.getElementById('appointmentTime').value;
+                const reason = document.getElementById('appointmentReason').value;
+
+                await bookAppointment(teacherId, date, time, reason);
+                bookModal.classList.remove('active');
+                document.getElementById('bookAppointmentForm').reset();
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                isBooking = false;
+            }
+        });
+
+        // Send message form
+        document.getElementById('sendMessageForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const teacherId = document.getElementById('messageTeacherId').value;
+            const subject = document.getElementById('messageSubject').value;
+            const content = document.getElementById('messageContent').value;
+
+            await sendMessage(teacherId, subject, content);
+            messageModal.classList.remove('active');
+            document.getElementById('sendMessageForm').reset();
+        });
+
+        // Edit profile button
+        document.getElementById('editProfileBtn').addEventListener('click', async () => {
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('editFullName').value = currentUser.fullName || '';
+                document.getElementById('editEmail').value = currentUser.email || '';
+                document.getElementById('editStudentId').value = currentUser.studentId || '';
+                document.getElementById('editDepartment').value = currentUser.department || '';
+                document.getElementById('editCourse').value = currentUser.course || '';
+                editProfileModal.classList.add('active');
+            }
+        });
+
+        // Edit profile form
+        document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentUser = getCurrentUser();
+            
+            try {
+                const updateData = {
+                    fullName: document.getElementById('editFullName').value,
+                    studentId: document.getElementById('editStudentId').value,
+                    department: document.getElementById('editDepartment').value,
+                    course: document.getElementById('editCourse').value
+                };
+
+                await db.collection('users').doc(currentUser.uid).update(updateData);
+                
+                // Update cached user data
+                const updatedUser = { ...currentUser, ...updateData };
+                localStorage.setItem('userData', JSON.stringify(updatedUser));
+                
+                showToast('Profile updated successfully', 'success');
+                editProfileModal.classList.remove('active');
+                await loadStudentProfile();
+            } catch (error) {
+                console.error('Update profile error:', error);
+                showToast('Failed to update profile', 'error');
+            }
+        });
+
+        // Function to load section data
+        async function loadSectionData(section) {
+            switch (section) {
+                case 'search':
+                    await loadTeachers();
+                    break;
+                case 'appointments':
+                    await loadStudentAppointments();
+                    break;
+                case 'messages':
+                    await loadStudentMessages();
+                    break;
+                case 'profile':
+                    await loadStudentProfile();
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

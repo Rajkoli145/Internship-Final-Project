@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Teacher Dashboard - Manage appointments and students">
+    <title>Teacher Dashboard - EduConnect</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/teacher.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h2>📚 EduConnect</h2>
+            </div>
+            <div class="nav-links">
+                <span id="userNameDisplay" class="user-name"></span>
+                <button id="logoutBtn" class="btn btn-small btn-secondary">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-item active" data-section="overview">
+                    <span class="icon material-icons">dashboard</span>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="sidebar-item" data-section="appointments">
+                    <span class="icon material-icons">event</span>
+                    <span>Appointments</span>
+                </a>
+                <a href="#" class="sidebar-item" data-section="schedule">
+                    <span class="icon material-icons">schedule</span>
+                    <span>My Schedule</span>
+                </a>
+                <a href="#" class="sidebar-item" data-section="messages">
+                    <span class="icon material-icons">chat</span>
+                    <span>Messages</span>
+                </a>
+                <a href="#" class="sidebar-item" data-section="profile">
+                    <span class="icon material-icons">person</span>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Overview Section -->
+            <section id="overviewSection" class="dashboard-section active">
+                <h1>Dashboard Overview</h1>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <h3 id="totalAppointments">0</h3>
+                            <p>Total Appointments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-content">
+                            <h3 id="pendingAppointments">0</h3>
+                            <p>Pending Requests</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <h3 id="approvedAppointments">0</h3>
+                            <p>Approved</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-content">
+                            <h3 id="totalMessages">0</h3>
+                            <p>Messages</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-section">
+                    <h2>Recent Appointments</h2>
+                    <div id="recentAppointments" class="appointments-list">
+                        <!-- Recent appointments will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section id="appointmentsSection" class="dashboard-section">
+                <h1>All Appointments</h1>
+
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="all">All</button>
+                    <button class="tab-btn" data-filter="pending">Pending</button>
+                    <button class="tab-btn" data-filter="approved">Approved</button>
+                    <button class="tab-btn" data-filter="cancelled">Cancelled</button>
+                </div>
+
+                <div id="appointmentsList" class="appointments-list">
+                    <!-- Appointments will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Schedule Section -->
+            <section id="scheduleSection" class="dashboard-section">
+                <h1>My Schedule</h1>
+                <button id="addScheduleBtn" class="btn btn-primary mb-20">Add Availability</button>
+                <div id="scheduleList" class="schedule-list">
+                    <!-- Schedule will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section id="messagesSection" class="dashboard-section">
+                <h1>Messages from Students</h1>
+                <div id="messagesList" class="messages-list">
+                    <!-- Messages will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profileSection" class="dashboard-section">
+                <div class="section-header">
+                    <h1>My Profile</h1>
+                    <button id="editProfileBtn" class="btn btn-primary">Edit Profile</button>
+                </div>
+                <div class="profile-card">
+                    <div id="profileDetails" class="profile-details">
+                        <!-- Profile details will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Schedule Modal -->
+    <div id="addScheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Add Availability</h2>
+            <form id="addScheduleForm">
+                <div class="form-group">
+                    <label for="scheduleDate">Date</label>
+                    <input type="date" id="scheduleDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleStartTime">Start Time</label>
+                    <input type="time" id="scheduleStartTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleEndTime">End Time</label>
+                    <input type="time" id="scheduleEndTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleNotes">Notes (Optional)</label>
+                    <textarea id="scheduleNotes" rows="3" placeholder="Any additional notes"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add Schedule</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editFullName">Full Name</label>
+                    <input type="text" id="editFullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="editSubject">Subject</label>
+                    <input type="text" id="editSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="editTeacherDepartment">Department</label>
+                    <input type="text" id="editTeacherDepartment" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPhone">Phone</label>
+                    <input type="tel" id="editPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="editExperience">Experience (years)</label>
+                    <input type="number" id="editExperience" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="editOfficeHours">Office Hours</label>
+                    <input type="text" id="editOfficeHours" placeholder="e.g., Mon-Fri 9AM-5PM">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="../js/firebase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/appointment.js"></script>
+    <script src="../js/teacher.js"></script>
+    <script src="../js/logs.js"></script>
+    <script>
+        // Check authentication
+        checkAuth('teacher');
+
+        // Sidebar navigation
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        const sections = document.querySelectorAll('.dashboard-section');
+
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionName = item.dataset.section;
+
+                // Update active states
+                sidebarItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // Show selected section
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionName + 'Section').classList.add('active');
+
+                // Load section data
+                loadSectionData(sectionName);
+            });
+        });
+
+        // Filter tabs for appointments
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                loadTeacherAppointments(filter);
+            });
+        });
+
+        // Load initial data
+        loadSectionData('overview');
+
+        // Logout handler
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+
+        // Modal handlers
+        const scheduleModal = document.getElementById('addScheduleModal');
+        const editProfileModal = document.getElementById('editProfileModal');
+        const closeButtons = document.querySelectorAll('.modal-close');
+
+        document.getElementById('addScheduleBtn').addEventListener('click', () => {
+            scheduleModal.style.display = 'block';
+        });
+
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                scheduleModal.style.display = 'none';
+                editProfileModal.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === scheduleModal) scheduleModal.style.display = 'none';
+            if (e.target === editProfileModal) editProfileModal.classList.remove('active');
+        });
+
+        // Add schedule form
+        document.getElementById('addScheduleForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const date = document.getElementById('scheduleDate').value;
+            const startTime = document.getElementById('scheduleStartTime').value;
+            const endTime = document.getElementById('scheduleEndTime').value;
+            const notes = document.getElementById('scheduleNotes').value;
+
+            await addTeacherSchedule(date, startTime, endTime, notes);
+            scheduleModal.style.display = 'none';
+            document.getElementById('addScheduleForm').reset();
+        });
+
+        // Edit profile button
+        document.getElementById('editProfileBtn').addEventListener('click', async () => {
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('editFullName').value = currentUser.fullName || '';
+                document.getElementById('editEmail').value = currentUser.email || '';
+                document.getElementById('editSubject').value = currentUser.subject || '';
+                document.getElementById('editTeacherDepartment').value = currentUser.teacherDepartment || '';
+                document.getElementById('editPhone').value = currentUser.phone || '';
+                document.getElementById('editExperience').value = currentUser.experience || 0;
+                document.getElementById('editOfficeHours').value = currentUser.officeHours || '';
+                editProfileModal.classList.add('active');
+            }
+        });
+
+        // Edit profile form
+        document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentUser = getCurrentUser();
+            
+            try {
+                const updateData = {
+                    fullName: document.getElementById('editFullName').value,
+                    subject: document.getElementById('editSubject').value,
+                    teacherDepartment: document.getElementById('editTeacherDepartment').value,
+                    phone: document.getElementById('editPhone').value,
+                    experience: parseInt(document.getElementById('editExperience').value),
+                    officeHours: document.getElementById('editOfficeHours').value
+                };
+
+                await db.collection('users').doc(currentUser.uid).update(updateData);
+                
+                // Update cached user data
+                const updatedUser = { ...currentUser, ...updateData };
+                localStorage.setItem('userData', JSON.stringify(updatedUser));
+                
+                showToast('Profile updated successfully', 'success');
+                editProfileModal.classList.remove('active');
+                await loadTeacherProfile();
+            } catch (error) {
+                console.error('Update profile error:', error);
+                showToast('Failed to update profile', 'error');
+            }
+        });
+
+        // Function to load section data
+        async function loadSectionData(section) {
+            switch (section) {
+                case 'overview':
+                    await loadTeacherOverview();
+                    break;
+                case 'appointments':
+                    await loadTeacherAppointments('all');
+                    break;
+                case 'schedule':
+                    await loadTeacherSchedule();
+                    break;
+                case 'messages':
+                    await loadTeacherMessages();
+                    break;
+                case 'profile':
+                    await loadTeacherProfile();
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
