@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - GYM Management</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">💪 FitZone</div>
+                <p class="role-badge user">User</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="search">
+                    <span class="icon">🔍</span>
+                    <span>Search Records</span>
+                </a>
+                <a href="#" class="nav-item" data-section="details">
+                    <span class="icon">📋</span>
+                    <span>View Details</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 id="page-title">Search Records</h1>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <span>User</span>
+                        <div class="avatar">U</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <section id="search-section" class="section active">
+                    <div class="search-card">
+                        <h2>Search Gym Records</h2>
+                        <p>Search for members, bills, and other gym records</p>
+
+                        <form id="searchForm" class="search-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Search By</label>
+                                    <select class="form-input" id="searchType">
+                                        <option value="member">Member Name</option>
+                                        <option value="id">Member ID</option>
+                                        <option value="email">Email</option>
+                                        <option value="phone">Phone Number</option>
+                                        <option value="package">Package Type</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Search Query</label>
+                                    <input type="text" class="form-input" id="searchQuery" placeholder="Enter search term...">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span>🔍</span> Search
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="search-results" id="searchResults" style="display: none;">
+                        <h3>Search Results</h3>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Package</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="searchResultsBody">
+                                    <tr>
+                                        <td>#001</td>
+                                        <td>John Doe</td>
+                                        <td>john@example.com</td>
+                                        <td>+1234567890</td>
+                                        <td><span class="badge badge-gold">Premium</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="quick-search-grid">
+                        <h3>Quick Search</h3>
+                        <div class="quick-search-buttons">
+                            <button class="quick-search-btn" onclick="quickSearch('active')">
+                                <span class="icon">✅</span>
+                                <span>Active Members</span>
+                            </button>
+                            <button class="quick-search-btn" onclick="quickSearch('premium')">
+                                <span class="icon">⭐</span>
+                                <span>Premium Members</span>
+                            </button>
+                            <button class="quick-search-btn" onclick="quickSearch('pending')">
+                                <span class="icon">⏳</span>
+                                <span>Pending Payments</span>
+                            </button>
+                            <button class="quick-search-btn" onclick="quickSearch('today')">
+                                <span class="icon">📅</span>
+                                <span>Today's Visitors</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="details-section" class="section">
+                    <div class="section-header">
+                        <h2>Gym Details</h2>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-card">
+                            <h3>Total Members</h3>
+                            <div class="detail-content">
+                                <p class="detail-number">245</p>
+                                <div class="detail-breakdown">
+                                    <div class="breakdown-item">
+                                        <span>Active</span>
+                                        <strong>220</strong>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <span>Inactive</span>
+                                        <strong>25</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-card">
+                            <h3>Package Distribution</h3>
+                            <div class="detail-content">
+                                <div class="detail-breakdown">
+                                    <div class="breakdown-item">
+                                        <span>Premium</span>
+                                        <strong>120</strong>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <span>Basic</span>
+                                        <strong>100</strong>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <span>Student</span>
+                                        <strong>25</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-card">
+                            <h3>Today's Activity</h3>
+                            <div class="detail-content">
+                                <p class="detail-number">87</p>
+                                <div class="detail-breakdown">
+                                    <div class="breakdown-item">
+                                        <span>Check-ins</span>
+                                        <strong>87</strong>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <span>Peak Hour</span>
+                                        <strong>6-8 PM</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="facility-details">
+                        <h3>Facility Information</h3>
+                        <div class="facility-grid">
+                            <div class="facility-card">
+                                <div class="facility-icon">🏋️</div>
+                                <h4>Equipment</h4>
+                                <p>50+ Machines</p>
+                                <p>Free Weights</p>
+                                <p>Cardio Equipment</p>
+                            </div>
+
+                            <div class="facility-card">
+                                <div class="facility-icon">🚿</div>
+                                <h4>Amenities</h4>
+                                <p>Locker Rooms</p>
+                                <p>Showers</p>
+                                <p>Steam Room</p>
+                            </div>
+
+                            <div class="facility-card">
+                                <div class="facility-icon">⏰</div>
+                                <h4>Hours</h4>
+                                <p>Mon-Fri: 6 AM - 10 PM</p>
+                                <p>Sat: 7 AM - 8 PM</p>
+                                <p>Sun: 8 AM - 6 PM</p>
+                            </div>
+
+                            <div class="facility-card">
+                                <div class="facility-icon">👨‍🏫</div>
+                                <h4>Staff</h4>
+                                <p>5 Personal Trainers</p>
+                                <p>2 Nutritionists</p>
+                                <p>Support Staff</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-records">
+                        <h3>Recent Records</h3>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Activity</th>
+                                        <th>Member</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>10:30 AM</td>
+                                        <td>Check-in</td>
+                                        <td>John Doe</td>
+                                        <td>Entered gym facility</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:15 AM</td>
+                                        <td>Payment</td>
+                                        <td>Sarah Smith</td>
+                                        <td>Monthly fee paid - $30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>09:45 AM</td>
+                                        <td>Registration</td>
+                                        <td>Mike Johnson</td>
+                                        <td>New member registered</td>
+                                    </tr>
+                                    <tr>
+                                        <td>09:20 AM</td>
+                                        <td>Check-in</td>
+                                        <td>Emily Davis</td>
+                                        <td>Entered gym facility</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="scripts/user-dashboard.js"></script>
+</body>
+</html>

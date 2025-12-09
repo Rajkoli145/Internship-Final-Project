@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - GYM Management</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">💪 FitZone</div>
+                <p class="role-badge">Admin</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="overview">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-section="members">
+                    <span class="icon">👥</span>
+                    <span>Members</span>
+                </a>
+                <a href="#" class="nav-item" data-section="bills">
+                    <span class="icon">💰</span>
+                    <span>Billing</span>
+                </a>
+                <a href="#" class="nav-item" data-section="packages">
+                    <span class="icon">📦</span>
+                    <span>Packages</span>
+                </a>
+                <a href="#" class="nav-item" data-section="notifications">
+                    <span class="icon">🔔</span>
+                    <span>Notifications</span>
+                </a>
+                <a href="#" class="nav-item" data-section="supplements">
+                    <span class="icon">🛒</span>
+                    <span>Supplement Store</span>
+                </a>
+                <a href="#" class="nav-item" data-section="diet">
+                    <span class="icon">🥗</span>
+                    <span>Diet Details</span>
+                </a>
+                <a href="#" class="nav-item" data-section="reports">
+                    <span class="icon">📄</span>
+                    <span>Reports</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 id="page-title">Dashboard Overview</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    <div class="user-profile">
+                        <span>Admin User</span>
+                        <div class="avatar">A</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <section id="overview-section" class="section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon green">👥</div>
+                            <div class="stat-info">
+                                <h3>Total Members</h3>
+                                <p class="stat-number">245</p>
+                                <span class="stat-change positive">+12 this month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon blue">💰</div>
+                            <div class="stat-info">
+                                <h3>Revenue</h3>
+                                <p class="stat-number">$12,450</p>
+                                <span class="stat-change positive">+8% from last month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon yellow">⏰</div>
+                            <div class="stat-info">
+                                <h3>Active Today</h3>
+                                <p class="stat-number">87</p>
+                                <span class="stat-change">35% of total</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red">📦</div>
+                            <div class="stat-info">
+                                <h3>Pending Bills</h3>
+                                <p class="stat-number">23</p>
+                                <span class="stat-change negative">Requires attention</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h2>Quick Actions</h2>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="showSection('members')">
+                                <span class="icon">➕</span>
+                                <span onclick="showAddMemberModal()" style="cursor: pointer;">Add New Member</span>
+                            </button>
+                            <button class="action-btn" onclick="showSection('bills')">
+                                <span class="icon">💵</span>
+                                Create Bill
+                            </button>
+                            <button class="action-btn" onclick="showSection('notifications')">
+                                <span class="icon">📢</span>
+                                Send Notification
+                            </button>
+                            <button class="action-btn" onclick="showSection('reports')">
+                                <span class="icon">📊</span>
+                                Generate Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h2>Recent Activity</h2>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">👤</div>
+                                <div class="activity-details">
+                                    <p><strong>John Doe</strong> joined the gym</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">💰</div>
+                                <div class="activity-details">
+                                    <p><strong>Payment received</strong> from Sarah Smith</p>
+                                    <span class="activity-time">5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">📦</div>
+                                <div class="activity-details">
+                                    <p><strong>New package</strong> assigned to Mike Johnson</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="members-section" class="section">
+                    <div class="section-header">
+                        <h2>Member Management</h2>
+                        <button class="btn btn-primary" onclick="showAddMemberModal()">
+                            <span>➕</span> <span onclick="showAddMemberModal()">Add New Member</span>
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Package</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#001</td>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>+1234567890</td>
+                                    <td><span class="badge badge-gold">Premium</span></td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="Edit" onclick="editMember('#001')">✏️</button>
+                                        <button class="btn-icon" title="Delete" onclick="deleteMember('#001')">🗑️</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#002</td>
+                                    <td>Sarah Smith</td>
+                                    <td>sarah@example.com</td>
+                                    <td>+1234567891</td>
+                                    <td><span class="badge badge-silver">Basic</span></td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="Edit" onclick="editMember('#002')">✏️</button>
+                                        <button class="btn-icon" title="Delete" onclick="deleteMember('#002')">🗑️</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#003</td>
+                                    <td>Mike Johnson</td>
+                                    <td>mike@example.com</td>
+                                    <td>+1234567892</td>
+                                    <td><span class="badge badge-gold">Premium</span></td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="Edit" onclick="editMember('#003')">✏️</button>
+                                        <button class="btn-icon" title="Delete" onclick="deleteMember('#003')">🗑️</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="bills-section" class="section">
+                    <div class="section-header">
+                        <h2>Billing Management</h2>
+                        <button class="btn btn-primary" onclick="showCreateBillModal()">
+                            <span>➕</span> <span onclick="showCreateBillModal()">Create New Bill</span>
+                        </button>
+                    </div>
+
+                    <div class="bill-filters">
+                        <select class="filter-select">
+                            <option>All Bills</option>
+                            <option>Paid</option>
+                            <option>Pending</option>
+                            <option>Overdue</option>
+                        </select>
+                        <input type="date" class="filter-input">
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Bill ID</th>
+                                    <th>Member</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#B001</td>
+                                    <td>John Doe</td>
+                                    <td>$50.00</td>
+                                    <td>2024-12-01</td>
+                                    <td>2024-12-15</td>
+                                    <td><span class="badge badge-success">Paid</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View">👁️</button>
+                                        <button class="btn-icon" title="Download">📥</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#B002</td>
+                                    <td>Sarah Smith</td>
+                                    <td>$30.00</td>
+                                    <td>2024-12-03</td>
+                                    <td>2024-12-17</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View">👁️</button>
+                                        <button class="btn-icon" title="Download">📥</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#B003</td>
+                                    <td>Mike Johnson</td>
+                                    <td>$50.00</td>
+                                    <td>2024-11-25</td>
+                                    <td>2024-12-10</td>
+                                    <td><span class="badge badge-danger">Overdue</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View">👁️</button>
+                                        <button class="btn-icon" title="Download">📥</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="packages-section" class="section">
+                    <div class="section-header">
+                        <h2>Fee Packages</h2>
+                        <button class="btn btn-primary">
+                            <span>➕</span> <span onclick="showCreatePackageModal()">Create Package</span>
+                        </button>
+                    </div>
+
+                    <div class="packages-grid">
+                        <div class="package-card">
+                            <h3>Basic Package</h3>
+                            <p class="package-price">$30<span>/month</span></p>
+                            <ul class="package-features">
+                                <li>✓ Gym Access</li>
+                                <li>✓ Basic Equipment</li>
+                                <li>✓ Locker Facility</li>
+                                <li>✗ Personal Trainer</li>
+                                <li>✗ Diet Plan</li>
+                            </ul>
+                            <div class="package-actions">
+                                <button class="btn btn-secondary" onclick="editPackage('Basic Package')">Edit</button>
+                                <button class="btn btn-danger" onclick="deletePackage('Basic Package')">Delete</button>
+                            </div>
+                        </div>
+
+                        <div class="package-card featured">
+                            <span class="featured-badge">Popular</span>
+                            <h3>Premium Package</h3>
+                            <p class="package-price">$50<span>/month</span></p>
+                            <ul class="package-features">
+                                <li>✓ Gym Access</li>
+                                <li>✓ All Equipment</li>
+                                <li>✓ Locker Facility</li>
+                                <li>✓ Personal Trainer</li>
+                                <li>✓ Diet Plan</li>
+                            </ul>
+                            <div class="package-actions">
+                                <button class="btn btn-secondary" onclick="editPackage('Premium Package')">Edit</button>
+                                <button class="btn btn-danger" onclick="deletePackage('Premium Package')">Delete</button>
+                            </div>
+                        </div>
+
+                        <div class="package-card">
+                            <h3>Student Package</h3>
+                            <p class="package-price">$20<span>/month</span></p>
+                            <ul class="package-features">
+                                <li>✓ Gym Access</li>
+                                <li>✓ Basic Equipment</li>
+                                <li>✓ Locker Facility</li>
+                                <li>✗ Personal Trainer</li>
+                                <li>✗ Diet Plan</li>
+                            </ul>
+                            <div class="package-actions">
+                                <button class="btn btn-secondary" onclick="editPackage('Student Package')">Edit</button>
+                                <button class="btn btn-danger" onclick="deletePackage('Student Package')">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="notifications-section" class="section">
+                    <div class="section-header">
+                        <h2>Notifications</h2>
+                        <button class="btn btn-primary" onclick="showNotificationModal()">
+                            <span>➕</span> Send Notification
+                        </button>
+                    </div>
+
+                    <div class="notification-form-card">
+                        <h3>Create New Notification</h3>
+                        <form id="notificationForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Notification Type</label>
+                                    <select class="form-input">
+                                        <option>Fee Reminder</option>
+                                        <option>Gym Schedule</option>
+                                        <option>General Announcement</option>
+                                        <option>Holiday Notice</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Send To</label>
+                                    <select class="form-input">
+                                        <option>All Members</option>
+                                        <option>Premium Members</option>
+                                        <option>Basic Members</option>
+                                        <option>Specific Member</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" class="form-input" placeholder="Notification title">
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea class="form-input" rows="4" placeholder="Enter your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Notification</button>
+                        </form>
+                    </div>
+
+                    <div class="notification-history">
+                        <h3>Recent Notifications</h3>
+                        <div class="notification-list">
+                            <div class="notification-item">
+                                <div class="notification-header">
+                                    <h4>Monthly Fee Reminder</h4>
+                                    <span class="notification-date">2 hours ago</span>
+                                </div>
+                                <p>Reminder: Monthly fees are due on 15th December</p>
+                                <span class="notification-recipients">Sent to: All Members</span>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-header">
+                                    <h4>Holiday Notice</h4>
+                                    <span class="notification-date">1 day ago</span>
+                                </div>
+                                <p>The gym will be closed on 25th December for Christmas</p>
+                                <span class="notification-recipients">Sent to: All Members</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="supplements-section" class="section">
+                    <div class="section-header">
+                        <h2>Supplement Store</h2>
+                        <button class="btn btn-primary">
+                            <span>➕</span> <span onclick="showAddProductModal()">Add Product</span>
+                        </button>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image">🍫</div>
+                            <h4>Protein Bar</h4>
+                            <p class="product-price">$2.99</p>
+                            <p class="product-stock">Stock: 100 units</p>
+                            <div class="product-actions">
+                                <button class="btn btn-secondary" onclick="editProduct('Protein Bar')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteProduct('Protein Bar')">Delete</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">💊</div>
+                            <h4>BCAA</h4>
+                            <p class="product-price">$29.99</p>
+                            <p class="product-stock">Stock: 40 units</p>
+                            <div class="product-actions">
+                                <button class="btn btn-secondary" onclick="editProduct('BCAA')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteProduct('BCAA')">Delete</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">⚡</div>
+                            <h4>Pre-Workout</h4>
+                            <p class="product-price">$34.99</p>
+                            <p class="product-stock">Stock: 15 units</p>
+                            <div class="product-actions">
+                                <button class="btn btn-secondary" onclick="editProduct('Pre-Workout')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteProduct('Pre-Workout')">Delete</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">🍫</div>
+                            <h4>Protein Bar</h4>
+                            <p class="product-price">$2.99</p>
+                            <p class="product-stock">Stock: 100 units</p>
+                            <div class="product-actions">
+                                <button class="btn btn-secondary" onclick="editProduct('Protein Bar')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteProduct('Protein Bar')">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="diet-section" class="section">
+                    <div class="section-header">
+                        <h2>Diet Plans</h2>
+                        <button class="btn btn-primary">
+                            <span>➕</span> <span onclick="showCreateDietPlanModal()">Create Diet Plan</span>
+                        </button>
+                    </div>
+
+                    <div class="diet-plans-grid">
+                        <div class="diet-plan-card">
+                            <h3>Weight Loss Plan</h3>
+                            <p class="plan-description">High protein, low carb diet for effective weight loss</p>
+                            <div class="plan-details">
+                                <div class="plan-stat">
+                                    <span class="stat-label">Calories</span>
+                                    <span class="stat-value">1500/day</span>
+                                </div>
+                                <div class="plan-stat">
+                                    <span class="stat-label">Protein</span>
+                                    <span class="stat-value">120g</span>
+                                </div>
+                                <div class="plan-stat">
+                                    <span class="stat-label">Duration</span>
+                                    <span class="stat-value">8 weeks</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+
+                        <div class="diet-plan-card">
+                            <h3>Muscle Gain Plan</h3>
+                            <p class="plan-description">High calorie, high protein diet for muscle building</p>
+                            <div class="plan-details">
+                                <div class="plan-stat">
+                                    <span class="stat-label">Calories</span>
+                                    <span class="stat-value">3000/day</span>
+                                </div>
+                                <div class="plan-stat">
+                                    <span class="stat-label">Protein</span>
+                                    <span class="stat-value">200g</span>
+                                </div>
+                                <div class="plan-stat">
+                                    <span class="stat-label">Duration</span>
+                                    <span class="stat-value">12 weeks</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+
+                        <div class="diet-plan-card">
+                            <h3>Maintenance Plan</h3>
+                            <p class="plan-description">Balanced diet for maintaining current fitness level</p>
+                            <div class="plan-details">
+                                <div class="plan-stat">
+                                    <span class="stat-label">Calories</span>
+                                    <span class="stat-value">2200/day</span>
+                                </div>
+                                <div class="plan-stat">
+                                    <span class="stat-label">Protein</span>
+                                    <span class="stat-value">150g</span>
+                                </div>
+                                <div class="plan-stat">
+                                    <span class="stat-label">Duration</span>
+                                    <span class="stat-value">Ongoing</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="reports-section" class="section">
+                    <div class="section-header">
+                        <h2>Reports & Analytics</h2>
+                        <button class="btn btn-primary">
+                            <span>📥</span> Export Report
+                        </button>
+                    </div>
+
+                    <div class="report-filters">
+                        <select class="filter-select">
+                            <option>Monthly Report</option>
+                            <option>Quarterly Report</option>
+                            <option>Yearly Report</option>
+                            <option>Custom Range</option>
+                        </select>
+                        <input type="date" class="filter-input" placeholder="From">
+                        <input type="date" class="filter-input" placeholder="To">
+                        <button class="btn btn-secondary">Generate</button>
+                    </div>
+
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <h3>Revenue Report</h3>
+                            <div class="report-content">
+                                <p class="report-value">$12,450</p>
+                                <p class="report-label">Total Revenue This Month</p>
+                                <div class="report-chart">📊</div>
+                            </div>
+                            <button class="btn btn-secondary">Download PDF</button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3>Membership Report</h3>
+                            <div class="report-content">
+                                <p class="report-value">245</p>
+                                <p class="report-label">Active Members</p>
+                                <div class="report-chart">📈</div>
+                            </div>
+                            <button class="btn btn-secondary">Download PDF</button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3>Attendance Report</h3>
+                            <div class="report-content">
+                                <p class="report-value">87%</p>
+                                <p class="report-label">Average Attendance Rate</p>
+                                <div class="report-chart">📉</div>
+                            </div>
+                            <button class="btn btn-secondary">Download PDF</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>

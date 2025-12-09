@@ -6,7 +6,33 @@ A collection of web development projects showcasing modern web technologies, int
 
 ## 📁 Project Folders
 
-### 1. 🕒 Countdown-Timer
+### 1. 🏋️ Gym-management-system
+A complete web-based gym management system with role-based dashboards for administrators, members, and general users.
+
+**Key Features:**
+- **Admin Dashboard:** Member management, billing system, package management, supplement store, diet plans, notifications, reports & analytics
+- **Member Dashboard:** Personal profile, payment receipts, personalized diet plans, trainer contact, notifications, gym schedule
+- **User Dashboard:** Search records, view gym statistics, activity tracking
+- Role-based access control (Admin, Member, User)
+- Complete billing and payment tracking system
+- Membership package management
+- Personalized diet plan creation and assignment
+- Supplement inventory management
+- Notification system for announcements
+- Revenue and attendance analytics
+
+**Technologies:** HTML5, CSS3, JavaScript ES6+, Firebase (optional)
+
+**Demo Credentials:**
+- Admin: `admin@fitzone.com` / `admin123`
+- Member: `member@fitzone.com` / `member123`
+- User: `user123` / `user123`
+
+**GitHub:** [Gym-management-system Repository](https://github.com/Rajkoli145/Gym-management-system)
+
+---
+
+### 2. 🕒 Countdown-Timer
 A modern, feature-rich countdown timer web application with multiple timer support and spectacular visual effects.
 
 **Key Features:**
@@ -23,7 +49,7 @@ A modern, feature-rich countdown timer web application with multiple timer suppo
 
 ---
 
-### 2. 🖼️ ImageSlider
+### 3. 🖼️ ImageSlider
 An interactive image slider with smooth transitions, automatic slideshow functionality, and touch/swipe support.
 
 **Key Features:**
@@ -41,7 +67,7 @@ An interactive image slider with smooth transitions, automatic slideshow functio
 
 ---
 
-### 3. 🎵 MusicPlayer
+### 4. 🎵 MusicPlayer
 A web-based music player with playlist management, audio controls, and visualizer for an enhanced listening experience.
 
 **Key Features:**
@@ -59,7 +85,7 @@ A web-based music player with playlist management, audio controls, and visualize
 
 ---
 
-### 4. ✅ To-do-list
+### 5. ✅ To-do-list
 A modern, responsive to-do list application with local storage persistence, task filtering, and progress tracking.
 
 **Key Features:**
@@ -82,7 +108,7 @@ A modern, responsive to-do list application with local storage persistence, task
 
 ---
 
-### 5. 📚 Student-teacher-booking (EduConnect)
+### 6. 📚 Student-teacher-booking (EduConnect)
 A comprehensive student-teacher appointment booking system with role-based access control and real-time synchronization.
 
 **Key Features:**

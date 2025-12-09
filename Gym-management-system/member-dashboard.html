@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - GYM Management</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">💪 FitZone</div>
+                <p class="role-badge member">Member</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="receipts">
+                    <span class="icon">🧾</span>
+                    <span>My Receipts</span>
+                </a>
+                <a href="#" class="nav-item" data-section="notifications">
+                    <span class="icon">🔔</span>
+                    <span>Notifications</span>
+                </a>
+                <a href="#" class="nav-item" data-section="profile">
+                    <span class="icon">👤</span>
+                    <span>My Profile</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 id="page-title">Member Dashboard</h1>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <span>John Doe</span>
+                        <div class="avatar">J</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <section id="dashboard-section" class="section active">
+                    <div class="welcome-card">
+                        <h2>Welcome back, John!</h2>
+                        <p>Here's your membership overview</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon green">📦</div>
+                            <div class="stat-info">
+                                <h3>Current Package</h3>
+                                <p class="stat-number">Premium</p>
+                                <span class="stat-change">Valid until: Dec 31, 2024</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon blue">💰</div>
+                            <div class="stat-info">
+                                <h3>Next Payment</h3>
+                                <p class="stat-number">$50.00</p>
+                                <span class="stat-change">Due: Dec 15, 2024</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon yellow">📅</div>
+                            <div class="stat-info">
+                                <h3>Visits This Month</h3>
+                                <p class="stat-number">18</p>
+                                <span class="stat-change">6 days per week</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red">🔔</div>
+                            <div class="stat-info">
+                                <h3>Notifications</h3>
+                                <p class="stat-number">3</p>
+                                <span class="stat-change">New messages</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="member-info-grid">
+                        <div class="info-card">
+                            <h3>Personal Trainer</h3>
+                            <div class="trainer-info">
+                                <div class="trainer-avatar">PT</div>
+                                <div>
+                                    <p class="trainer-name">Mike Smith</p>
+                                    <p class="trainer-specialty">Strength Training</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="contactTrainer()">Contact Trainer</button>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Current Diet Plan</h3>
+                            <p class="diet-name">Muscle Gain Plan</p>
+                            <div class="diet-stats">
+                                <div class="diet-stat">
+                                    <span>Calories</span>
+                                    <strong>3000/day</strong>
+                                </div>
+                                <div class="diet-stat">
+                                    <span>Protein</span>
+                                    <strong>200g</strong>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="viewFullPlan()">View Full Plan</button>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Gym Schedule</h3>
+                            <div class="schedule-info">
+                                <p>Monday - Friday: 6:00 AM - 10:00 PM</p>
+                                <p>Saturday: 7:00 AM - 8:00 PM</p>
+                                <p>Sunday: 8:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="receipts-section" class="section">
+                    <div class="section-header">
+                        <h2>Payment Receipts</h2>
+                        <button class="btn btn-primary">
+                            <span>📥</span> <span onclick="downloadAllReceipts()" style="cursor: pointer;">Download All</span>
+                        </button>
+                    </div>
+
+                    <div class="receipts-filter">
+                        <select class="filter-select">
+                            <option>All Receipts</option>
+                            <option>This Month</option>
+                            <option>Last 3 Months</option>
+                            <option>This Year</option>
+                        </select>
+                    </div>
+
+                    <div class="receipts-grid">
+                        <div class="receipt-card">
+                            <div class="receipt-header">
+                                <h4>Receipt #R001</h4>
+                                <span class="receipt-status paid">Paid</span>
+                            </div>
+                            <div class="receipt-details">
+                                <div class="receipt-row">
+                                    <span>Date:</span>
+                                    <strong>December 1, 2024</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Package:</span>
+                                    <strong>Premium Monthly</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Amount:</span>
+                                    <strong>$50.00</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Payment Method:</span>
+                                    <strong>Credit Card</strong>
+                                </div>
+                            </div>
+                            <div class="receipt-actions">
+                                <button class="btn btn-secondary receipt-view-btn" onclick="viewReceipt(this.closest('.receipt-card'))">View</button>
+                                <button class="btn btn-secondary receipt-download-btn" onclick="downloadReceipt(this.closest('.receipt-card'))">Download</button>
+                            </div>
+                        </div>
+
+                        <div class="receipt-card">
+                            <div class="receipt-header">
+                                <h4>Receipt #R002</h4>
+                                <span class="receipt-status paid">Paid</span>
+                            </div>
+                            <div class="receipt-details">
+                                <div class="receipt-row">
+                                    <span>Date:</span>
+                                    <strong>November 1, 2024</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Package:</span>
+                                    <strong>Premium Monthly</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Amount:</span>
+                                    <strong>$50.00</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Payment Method:</span>
+                                    <strong>Credit Card</strong>
+                                </div>
+                            </div>
+                            <div class="receipt-actions">
+                                <button class="btn btn-secondary receipt-view-btn" onclick="viewReceipt(this.closest('.receipt-card'))">View</button>
+                                <button class="btn btn-secondary receipt-download-btn" onclick="downloadReceipt(this.closest('.receipt-card'))">Download</button>
+                            </div>
+                        </div>
+
+                        <div class="receipt-card">
+                            <div class="receipt-header">
+                                <h4>Receipt #R003</h4>
+                                <span class="receipt-status paid">Paid</span>
+                            </div>
+                            <div class="receipt-details">
+                                <div class="receipt-row">
+                                    <span>Date:</span>
+                                    <strong>October 1, 2024</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Package:</span>
+                                    <strong>Premium Monthly</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Amount:</span>
+                                    <strong>$50.00</strong>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Payment Method:</span>
+                                    <strong>Debit Card</strong>
+                                </div>
+                            <div class="receipt-actions">
+                                <button class="btn btn-secondary receipt-view-btn" onclick="viewReceipt(this.closest('.receipt-card'))">View</button>
+                                <button class="btn btn-secondary receipt-download-btn" onclick="downloadReceipt(this.closest('.receipt-card'))">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="notifications-section" class="section">
+                    <div class="section-header">
+                        <h2>Notifications</h2>
+                        <button class="btn btn-secondary">Mark All as Read</button>
+                    </div>
+
+                    <div class="notification-list">
+                        <div class="notification-item unread">
+                            <div class="notification-icon">💰</div>
+                            <div class="notification-content">
+                                <h4>Payment Reminder</h4>
+                                <p>Your monthly fee of $50.00 is due on December 15, 2024</p>
+                                <span class="notification-time">2 hours ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item unread">
+                            <div class="notification-icon">🎄</div>
+                            <div class="notification-content">
+                                <h4>Holiday Notice</h4>
+                                <p>The gym will be closed on December 25th for Christmas</p>
+                                <span class="notification-time">1 day ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item unread">
+                            <div class="notification-icon">🏋️</div>
+                            <div class="notification-content">
+                                <h4>New Equipment Available</h4>
+                                <p>Check out our new cardio machines on the second floor!</p>
+                                <span class="notification-time">3 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon">✅</div>
+                            <div class="notification-content">
+                                <h4>Payment Successful</h4>
+                                <p>Your payment of $50.00 has been received. Receipt #R001</p>
+                                <span class="notification-time">1 week ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon">🥗</div>
+                            <div class="notification-content">
+                                <h4>New Diet Plan Available</h4>
+                                <p>Your trainer has assigned you a new nutrition plan</p>
+                                <span class="notification-time">2 weeks ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="profile-section" class="section">
+                    <div class="section-header">
+                        <h2>My Profile</h2>
+                        <button class="btn btn-primary" onclick="editProfile()">Edit Profile</button>
+                    </div>
+
+                    <div class="profile-content">
+                        <div class="profile-header-section">
+                            <div class="profile-avatar-large">JD</div>
+                            <div class="profile-info">
+                                <h3>John Doe</h3>
+                                <p>Member since: January 2024</p>
+                                <span class="badge badge-gold">Premium Member</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-details-grid">
+                            <div class="profile-detail-card">
+                                <h4>Personal Information</h4>
+                                <div class="detail-row">
+                                    <span>Email:</span>
+                                    <strong>john.doe@example.com</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Phone:</span>
+                                    <strong>+1 (234) 567-8900</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Date of Birth:</span>
+                                    <strong>January 15, 1995</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Emergency Contact:</span>
+                                    <strong>+1 (234) 567-8901</strong>
+                                </div>
+                            </div>
+
+                            <div class="profile-detail-card">
+                                <h4>Membership Details</h4>
+                                <div class="detail-row">
+                                    <span>Member ID:</span>
+                                    <strong>#001</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Package:</span>
+                                    <strong>Premium Monthly</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Valid Until:</span>
+                                    <strong>December 31, 2024</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Monthly Fee:</span>
+                                    <strong>$50.00</strong>
+                                </div>
+                            </div>
+
+                            <div class="profile-detail-card">
+                                <h4>Fitness Information</h4>
+                                <div class="detail-row">
+                                    <span>Height:</span>
+                                    <strong>5'10"</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Weight:</span>
+                                    <strong>180 lbs</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Goal:</span>
+                                    <strong>Muscle Gain</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Trainer:</span>
+                                    <strong>Mike Smith</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>
