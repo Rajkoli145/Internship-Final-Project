@@ -56,6 +56,7 @@ A web-based music player with playlist management, audio controls, and visualize
 - Playlist management (shuffle, sort, clear)
 
 **Technologies:** HTML5, CSS3, JavaScript ES6+, HTML5 Audio API, Font Awesome
+**Github:** [Musicpplayer Repository](https://github.com/Rajkoli145/MusicPlayer.git)
 
 ---
 
